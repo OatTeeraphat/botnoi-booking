@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Player from "./Component/Player";
+import Player from "./component/Player";
 
 
 class App extends Component {
