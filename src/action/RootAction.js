@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable'
-import PlayerAction from '../action/PlayerAction'
+import { handleChangeVideo, updateDimesion } from '../action/PlayerAction'
 
 export default combineEpics(
-	PlayerAction.updateDimesion,
-	PlayerAction.handleChangeVideo
+	updateDimesion,
+	handleChangeVideo
 )

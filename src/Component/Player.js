@@ -18,7 +18,7 @@ class Player extends Component {
 
 	render() {
 
-		let { url, index_url, width, height } = this.props
+		let { url, index_url, width, height, handleChangeVideo } = this.props
 		
 		return (
 			<div className="player">
@@ -28,7 +28,7 @@ class Player extends Component {
 					width={ width }
 					height={ height }
 				/>
-				<button onClick={() => this.props.handleChangeVideo()}>BTN</button>
+				<button onClick={() => handleChangeVideo()}>BTN</button>
 			</div>
 		)
 	}
