@@ -8,11 +8,11 @@ export const playerReducer = (
 			'./storage/video/Reception.mp4',
 			'./storage/video/เช็คอิน.mp4',
 			'./storage/video/ขออนุญาติถ่ายรูป.mp4',
-			'./storage/video/welcome_สวัสดีครับ.mp4',
-			'./storage/video/welcome_สวัสดีครับ.mp4',
-			'./storage/video/welcome_สวัสดีครับ.mp4',
+			'./storage/video/คุณบิ๊ก.mp4',
+			'./storage/video/คุณบิ๊ก.mp4',
+			'./storage/video/คุณบิ๊ก.mp4',
 		],
-		player_state: 0,
+		index_url: 0,
 		can_capture: true,
 	},
 	action
@@ -32,78 +32,19 @@ export const playerReducer = (
 				is_loading: false,
 			}
 		case 'PLAYER_HANDLE_CHANGE_VIDEO':
-
-			switch (action.isCaptureOn) {
-				case '':
-					return {
-						...state,
-						player_state: 0,
-						can_capture: true
-					}
-				case 'onPreCapture':
-					return { 
-						...state,
-						player_state: state.player_state + 1,
-						can_capture: true
-					}
-			}
-
-
-
-
-				/* switch (player_state) {
-					case 0:
-						// loop นั่งเฉยๆ welcome
-						console.log(action.isCaptureOn)
-						if (action.isCaptureOn === '') {
-							return {
-								...state,
-								player_state: 0,
-								can_capture: true
-							}
-						}
-						//คนมายืนหน้ากล้อง
-						if (action.isCaptureOn === 'onPreCapture') {
-							return {
-								...state,
-								player_state: player_state + 1,
-								can_capture: true
-							}
-						}
-					
-					case 1:
-						//คนมายืนหน้ากล้อง
-						if (action.isCaptureOn === 'onPreCapture') {
-							return {
-								...state,
-								player_state: 1,
-								can_capture: false
-							}
-						}
-						//คนมายืนหน้ากล้อง
-						if (action.isCaptureOn === 'onPreCapture') {
-							return {
-								...state,
-								player_state: 2,
-								can_capture: false
-							}
-						}
-
-
-					default:
-						return state
-				} */
-				
+			let index = action.isCaptureOn
 			return {
 				...state,
-				player_state: 'welcome',
+				index_url: index ? index : 0,
+				is_loading: true,
+				can_capture: false,
 			}
-	
 
 		case 'PLAYER_HANDLE_CHANGE_VIDEO_SUCCESS':
 			return {
 				...state,
-				can_capture: 0,
+				is_loading: false,
+				can_capture: true,
 			}
 		default:
 			return state

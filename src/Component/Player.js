@@ -22,15 +22,15 @@ class Player extends Component {
 	}
 
 	render() {
-		let { url, player_state, width, height, handleChangeVideo } = this.props
+		let { url, index_url, width, height, handleChangeVideo, openCamera } = this.props
 		return (
 			<div className="player">
 				<Reactplayer
 					playing
-					url={url[player_state] }
+					url={ url[index_url] }
 					width={ width }
 					height={ height }
-					onEnded={ () => handleChangeVideo() }
+					onEnded={() => openCamera(0)}
 				/>
 			</div>
 		)
@@ -42,13 +42,13 @@ const mapStateToProps = (state) => ({
 	url: state.player.url,
 	height: state.player.height,
 	width: state.player.width,
-	player_state: state.player.player_state,
-	track_num: state.player.track_num
+	index_url: state.player.index_url,
 })
 
 const mapDispatachToProps = {
 	updateDimensions: (width, height) => ({ type: 'PLAYER_UPDATE_DIMENSION', width: width, height: height }),
-	handleChangeVideo: () => ({ type: 'PLAYER_HANDLE_CHANGE_VIDEO' , isCaptureOn : ''})
+	handleChangeVideo: () => ({ type: 'PLAYER_HANDLE_CHANGE_VIDEO' , isCaptureOn : ''}),
+	openCamera: (opacity) => ({ type: 'CAM_OPEN', opacity: opacity }),
 }
 
 export default connect(

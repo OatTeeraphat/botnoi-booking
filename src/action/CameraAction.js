@@ -8,7 +8,7 @@ export const savePhoto64 = (action) => action
 		rxPost('https://hotel-reg-demo.herokuapp.com/upload_scan_image', { "scan_image": payload.img_base64 } )
 		.debounceTime(300)
 		.catch( err => { console.log( err ) } )
-		.map(response => ({ type: 'CAM_CAPTURE_ALREADY', img_url: response.scan_image }))
+		.map(response => ({ type: 'CAM_CAPTURE_ALREADY', img_url: response.scan_image, is_track: payload.is_track }))
 	)
 
 export const cameraAlreadySave = (action) => action
@@ -18,6 +18,11 @@ export const cameraAlreadySave = (action) => action
 		rxGet('http://hotel-reg-demo.herokuapp.com/get_booking?imgurl=' + 'http://s3-ap-southeast-1.amazonaws.com/hotel-recognition-pics/2a1d7830-d880-4688-800b-94f758beca2a.png')
 		.map( response => ({ type: 'BOOKING', booking_detail: response }))
 	)
+
+
+export const bookingDone = (action) => action
+	.ofType('BOOKING')
+	.mapTo({ type: 'PLAYER_HANDLE_CHANGE_VIDEO', isCaptureOn: 4 })
 
 
 export const rxPost = (path, body) => {
