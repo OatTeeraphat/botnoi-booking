@@ -16,13 +16,26 @@ export const cameraAlreadySave = (action) => action
 	// .debounceTime(200)
 	.switchMap( payload => 
 		rxGet('http://hotel-reg-demo.herokuapp.com/get_booking?imgurl=' + 'http://s3-ap-southeast-1.amazonaws.com/hotel-recognition-pics/2a1d7830-d880-4688-800b-94f758beca2a.png')
+		.catch(err => ({ type: "PLAYER_HANDLE_CHANGE_VIDEO", isCaptureOn: 4 }) )
 		.map( response => ({ type: 'BOOKING', booking_detail: response }))
 	)
 
 
 export const bookingDone = (action) => action
 	.ofType('BOOKING')
-	.mapTo({ type: 'PLAYER_HANDLE_CHANGE_VIDEO', isCaptureOn: 4 })
+	.map(it => {
+		switch (it.booking_detail.Name) {
+			case 'บิ้ก':
+				return 4
+			case 'วิน':
+				return 4
+			default:
+				return 4
+		}
+	} )
+	.map(x => ({ type: 'PLAYER_HANDLE_CHANGE_VIDEO', isCaptureOn: x }))
+
+	// .mapTo({ type: 'PLAYER_HANDLE_CHANGE_VIDEO', isCaptureOn: 4 })
 
 
 export const rxPost = (path, body) => {
