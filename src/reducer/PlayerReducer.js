@@ -45,7 +45,7 @@ export const playerReducer = (
 		case 'PLAYER_HANDLE_CHANGE_VIDEO':
 			let { player_state } = state
 				switch (player_state) {
-					case welcome:
+					case 'welcome':
 						// loop นั่งเฉยๆ
 						if (action.isCaptureOn === '') {
 							return {
