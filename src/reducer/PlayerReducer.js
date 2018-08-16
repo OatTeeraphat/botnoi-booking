@@ -7,7 +7,7 @@ export const playerReducer = (
 		url:[
 			'./storage/video/Reception.mp4',
 			'./storage/video/เช็คอิน.mp4',
-			'./storage/video/ขออนุญาติถ่ายรูป.mp4',
+			'./storage/video/welcome.mp4',
 			'./storage/video/คุณบิ๊ก.mp4',
 			'./storage/video/คุณวิน.mp4',
 			'./storage/video/คุณใหญ่.mp4',
