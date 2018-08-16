@@ -6,3 +6,11 @@ body {
 	background: #000;
 	font-family: sans-serif;
 }
+
+.camera_video{
+	
+}
+.camera_canvas{
+	position: absolute;
+	left: 0;
+}

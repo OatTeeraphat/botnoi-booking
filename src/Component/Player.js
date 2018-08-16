@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactPlayer from "react-player";
+import Reactplayer from "react-player";
 import { connect } from 'react-redux'
 
 
@@ -16,19 +16,22 @@ class Player extends Component {
 		this.props.updateDimensions(innerWidth, innerHeight)
 	}
 
-	render() {
+	rndNum(data){
+		let num = Math.floor(Math.random() * Math.floor(data.length))
+		return num
+	}
 
-		let { url, index_url, width, height, handleChangeVideo } = this.props
-		
+	render() {
+		let { url, player_state, width, height, handleChangeVideo } = this.props
 		return (
 			<div className="player">
-				<ReactPlayer
+				<Reactplayer
 					playing
-					url={ url[index_url] }
+					url={url[player_state][ this.rndNum(url[player_state]) ] }
 					width={ width }
 					height={ height }
+					onEnded={ () => handleChangeVideo() }
 				/>
-				<button onClick={() => handleChangeVideo()}>BTN</button>
 			</div>
 		)
 	}
@@ -39,12 +42,12 @@ const mapStateToProps = (state) => ({
 	url: state.player.url,
 	height: state.player.height,
 	width: state.player.width,
-	index_url: state.player.index_url
+	player_state: state.player.player_state
 })
 
 const mapDispatachToProps = {
-	updateDimensions: ( width, height ) => ({ type: 'UPDATE_DIMENSION', width: width, height: height }),
-	handleChangeVideo: () => ({ type: 'HANDLE_CHANGE_VIDEO'})
+	updateDimensions: (width, height) => ({ type: 'PLAYER_UPDATE_DIMENSION', width: width, height: height }),
+	handleChangeVideo: () => ({ type: 'PLAYER_HANDLE_CHANGE_VIDEO' , isCaptureOn : ''})
 }
 
 export default connect(
