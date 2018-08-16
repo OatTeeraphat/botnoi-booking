@@ -27,7 +27,7 @@ class Player extends Component {
 			<div className="player">
 				<Reactplayer
 					playing
-					url={url[player_state][ this.rndNum(url[player_state]) ] }
+					url={url[player_state][0] }
 					width={ width }
 					height={ height }
 					onEnded={ () => handleChangeVideo() }

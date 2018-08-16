@@ -17,7 +17,7 @@ class Camera extends Component {
 		this.tracker.setStepSize(2)
 		this.tracker.setEdgesDensity(0.1)
 		let { canvas, cameraOutput } = this.refs
-		let { is_already_capture, isCapture, savePhoto64 } = this.props
+		let { is_already_capture, isCapture, savePhoto64, handleOnCapturePre, is_loading } = this.props
 		//window.tracking.track(this.refs.cameraOutput, this.tracker, { camera: false })
 		window.tracking.track(cameraOutput, this.tracker, { camera: true })
 
@@ -35,10 +35,11 @@ class Camera extends Component {
 				context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11)
 				context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22)
 
-				if (rect.x > 475 && rect.x < 675) {
+				if (rect.x > 475 && rect.x < 675 && is_loading ) {
 					
 					var dataURI = canvas.toDataURL('image/jpeg')
 						savePhoto64(dataURI)
+						handleOnCapturePre()
 					// isCapture()
 
 					// isCapture()

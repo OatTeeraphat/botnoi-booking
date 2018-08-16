@@ -6,10 +6,10 @@ export const playerReducer = (
 		is_loading: false, 
 		url:{
 			welcome: [
-				'./storage/video/welcome_สวัสดีครับ.mp4',
+				'./storage/video/Reception.mp4',
 			],
 			pre: [
-				'./storage/video/welcome_ยินดีต้อนรับ.mp4',
+				'./storage/video/เช็คอิน.mp4',
 			],
 			pre2:[
 				'./storage/video/welcome_ยินดีต้อนรับ.mp4',

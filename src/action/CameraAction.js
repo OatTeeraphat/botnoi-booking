@@ -15,8 +15,8 @@ export const cameraAlreadySave = (action) => action
 	.ofType('CAM_CAPTURE_ALREADY')
 	// .debounceTime(200)
 	.switchMap( payload => 
-		rxGet('http://hotel-reg-demo.herokuapp.com/get_booking?imgurl=' + payload.img_url)
-		.mapTo( response => ({ type: 'BOOKING', booking_detail: response }))
+		rxGet('http://hotel-reg-demo.herokuapp.com/get_booking?imgurl=' + 'http://s3-ap-southeast-1.amazonaws.com/hotel-recognition-pics/2a1d7830-d880-4688-800b-94f758beca2a.png')
+		.map( response => ({ type: 'BOOKING', booking_detail: response }))
 	)
 
 
