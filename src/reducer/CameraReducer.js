@@ -1,22 +1,12 @@
 export const cameraReducer = (
 	state = {
-		handle_cam: false,
+		handle_cam: true,
 		is_already_capture: false
 	},
 	action
 ) => {
 
 	switch (action.type) {
-		case 'CAM_START':
-			return {
-				...state,
-				handle_cam: true
-			}
-		case 'CAM_STOP':
-			return {
-				...state,
-				handle_cam: false
-			}
 		case 'CAM_SAVE_PHOTO_64' : {
 			return {
 				...state,

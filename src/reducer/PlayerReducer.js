@@ -4,28 +4,16 @@ export const playerReducer = (
 		width: 0, 
 		height: 0, 
 		is_loading: false, 
-		url:{
-			welcome: [
-				'./storage/video/Reception.mp4',
-			],
-			pre: [
-				'./storage/video/เช็คอิน.mp4',
-			],
-			pre2:[
-				'./storage/video/welcome_ยินดีต้อนรับ.mp4',
-			],
-			success: [
-				'./storage/video/welcome_สวัสดีครับ.mp4',
-			],
-			fail:[
-				'./storage/video/welcome_สวัสดีครับ.mp4',
-			],
-			final:[
-				'./storage/video/welcome_สวัสดีครับ.mp4',
-			]
-		},
-		player_state: 'welcome',
-		can_capture: true
+		url:[
+			'./storage/video/Reception.mp4',
+			'./storage/video/เช็คอิน.mp4',
+			'./storage/video/ขออนุญาติถ่ายรูป.mp4',
+			'./storage/video/welcome_สวัสดีครับ.mp4',
+			'./storage/video/welcome_สวัสดีครับ.mp4',
+			'./storage/video/welcome_สวัสดีครับ.mp4',
+		],
+		player_state: 0,
+		can_capture: true,
 	},
 	action
 ) => {
@@ -41,49 +29,71 @@ export const playerReducer = (
 		case 'PLAYER_UPDATE_DIMENSION_SUCCESS':
 			return {
 				...state,
-				is_loading: false
+				is_loading: false,
 			}
 		case 'PLAYER_HANDLE_CHANGE_VIDEO':
-			let { player_state } = state
-				switch (player_state) {
-					case 'welcome':
-						// loop นั่งเฉยๆ
+
+			switch (action.isCaptureOn) {
+				case '':
+					return {
+						...state,
+						player_state: 0,
+						can_capture: true
+					}
+				case 'onPreCapture':
+					return { 
+						...state,
+						player_state: state.player_state + 1,
+						can_capture: true
+					}
+			}
+
+
+
+
+				/* switch (player_state) {
+					case 0:
+						// loop นั่งเฉยๆ welcome
+						console.log(action.isCaptureOn)
 						if (action.isCaptureOn === '') {
 							return {
 								...state,
-								player_state: 'welcome',
+								player_state: 0,
 								can_capture: true
 							}
 						}
 						//คนมายืนหน้ากล้อง
-						if (action.isCaptureOn === 'onCapturePre'){
+						if (action.isCaptureOn === 'onPreCapture') {
 							return {
 								...state,
-								player_state: 'pre',
-								can_capture : false
+								player_state: player_state + 1,
+								can_capture: true
 							}
 						}
-						if (action.isCaptureOn === 'onCaptureStart') {
+					
+					case 1:
+						//คนมายืนหน้ากล้อง
+						if (action.isCaptureOn === 'onPreCapture') {
 							return {
 								...state,
-								player_state: 'pre',
-								can_capture : true
-							}
-						}
-						if (action.isCaptureOn === 'fuck') {
-							return {
-								...state,
-								player_state: 'pre',
+								player_state: 1,
 								can_capture: false
 							}
 						}
-				
+						//คนมายืนหน้ากล้อง
+						if (action.isCaptureOn === 'onPreCapture') {
+							return {
+								...state,
+								player_state: 2,
+								can_capture: false
+							}
+						}
+
+
 					default:
 						return state
-				}
-			
-			
-		
+				} */
+				
 			return {
 				...state,
 				player_state: 'welcome',
@@ -93,7 +103,7 @@ export const playerReducer = (
 		case 'PLAYER_HANDLE_CHANGE_VIDEO_SUCCESS':
 			return {
 				...state,
-				is_loading: false
+				can_capture: 0,
 			}
 		default:
 			return state

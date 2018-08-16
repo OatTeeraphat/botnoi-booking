@@ -27,7 +27,7 @@ class Player extends Component {
 			<div className="player">
 				<Reactplayer
 					playing
-					url={url[player_state][0] }
+					url={url[player_state] }
 					width={ width }
 					height={ height }
 					onEnded={ () => handleChangeVideo() }
@@ -42,7 +42,8 @@ const mapStateToProps = (state) => ({
 	url: state.player.url,
 	height: state.player.height,
 	width: state.player.width,
-	player_state: state.player.player_state
+	player_state: state.player.player_state,
+	track_num: state.player.track_num
 })
 
 const mapDispatachToProps = {

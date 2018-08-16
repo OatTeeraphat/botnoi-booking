@@ -13,8 +13,8 @@ class App extends Component {
         <div className="container">
           <Player />
           {
-            //this.props.handle_cam
-            true
+            this.props.handle_cam
+            //true
             //false
               ? <Camera />
               : null

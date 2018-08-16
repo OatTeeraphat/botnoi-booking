@@ -12,21 +12,29 @@ class Camera extends Component {
 	tracker = null
 
 	componentDidMount() {
+		
+		this.faceTracker();
+
+	}
+
+	faceTracker = () => {
+		
 		this.tracker = new window.tracking.ObjectTracker('face')
 		this.tracker.setInitialScale(4)
 		this.tracker.setStepSize(2)
 		this.tracker.setEdgesDensity(0.1)
 		let { canvas, cameraOutput } = this.refs
-		let { is_already_capture, isCapture, savePhoto64, handleOnCapturePre, is_loading } = this.props
+		let { is_already_capture, isCapture, savePhoto64, handleOnCapturePre, can_capture, handleChangeVideo, closeCamera, openCamera } = this.props
 		//window.tracking.track(this.refs.cameraOutput, this.tracker, { camera: false })
-		window.tracking.track(cameraOutput, this.tracker, { camera: true })
-
+		let trackTasks = window.tracking.track(cameraOutput, this.tracker, { camera: true })
+		
 		this.tracker.on('track', event => {
 			let context = canvas.getContext('2d')
 			// let image = context.drawImage(cameraOutput, 0, 0, canvas.width, canvas.height);
 
 			context.clearRect(0, 0, canvas.width, canvas.height)
 			context.drawImage(cameraOutput, 0, 0, canvas.width, canvas.height)
+			
 			event.data.forEach(function (rect) {
 				context.strokeStyle = '#a64ceb'
 				context.strokeRect(rect.x, rect.y, rect.width, rect.height)
@@ -34,12 +42,17 @@ class Camera extends Component {
 				context.fillStyle = "#fff"
 				context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11)
 				context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22)
+				console.log(can_capture)
+				
+				if (rect.x > 475 && rect.x < 675 && can_capture) {
 
-				if (rect.x > 475 && rect.x < 675 && !is_loading ) {
-					
 					var dataURI = canvas.toDataURL('image/jpeg')
-						//savePhoto64(dataURI)
-						handleOnCapturePre()
+					//	
+							setTimeout(function () {
+								trackTasks.stop()
+								handleOnCapturePre()
+							}, 100);
+						
 					// isCapture()
 
 					// isCapture()
@@ -49,7 +62,6 @@ class Camera extends Component {
 				}
 			})
 		})
-
 	}
 
 	render(){
@@ -67,13 +79,17 @@ class Camera extends Component {
 const mapStateToProps = (state) => ({
 	width: state.player.width,
 	height: state.player.height,
-	is_already_capture: state.camera.is_already_capture
+	is_already_capture: state.camera.is_already_capture,
+	can_capture : state.player.can_capture,
+	handle_cam: state.camera.handle_cam,
 })
 
 const mapDispatachToProps = {
 	savePhoto64: (dataURI) => ({ type: 'CAM_SAVE_PHOTO_64', img_base64: dataURI }),
-	handleOnCapturePre: () => ({ type: 'PLAYER_HANDLE_CHANGE_VIDEO', isCaptureOn: 'onCapturePre' }),
-	handleChangeVideo: () => ({ type: 'PLAYER_HANDLE_CHANGE_VIDEO', isCaptureOn: 'onCaptureSucess' })
+	handleOnCapturePre: () => ({ type: 'PLAYER_HANDLE_CHANGE_VIDEO', isCaptureOn: 'onPreCapture' }),
+	handleChangeVideo: () => ({ type: 'PLAYER_HANDLE_CHANGE_VIDEO', isCaptureOn: 'onCaptureSucess' }),
+	openCamera: () => ({ type: 'CAM_OPEN' }),
+	closeCamera: () => ({ type: 'CAM_CLOSE'})
 	// isCapture: () => ({ type: 'CAM_CAPTURE_ALREADY', img_url: 'http://s3-ap-southeast-1.amazonaws.com/hotel-recognition-pics/2a1d7830-d880-4688-800b-94f758beca2a.png'}),
 }
 

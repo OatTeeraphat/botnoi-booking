@@ -2,7 +2,7 @@ import 'rxjs'
 
 export const updateDimesion = (action) => action
 	.ofType('PLAYER_UPDATE_DIMENSION')
-	.debounceTime(300)
+	.debounceTime(1000)
 	.mapTo({ type: 'PLAYER_UPDATE_DIMENSION_SUCCESS' })
 	
 export const handleChangeVideo = (action) => action
