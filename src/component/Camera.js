@@ -43,7 +43,7 @@ class Camera extends Component {
 				//console.log(can_capture)
 				//set opacity to 1
 				
-				if (rect.x > 475 && rect.x < 675 && can_capture) {
+				if (rect.x > 400 && rect.x < 750 && can_capture) {
 					openCamera(1)
 					var dataURI = canvas.toDataURL('image/jpeg')
 						setTimeout(function () {

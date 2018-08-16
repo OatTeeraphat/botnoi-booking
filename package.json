@@ -44,5 +44,9 @@
     "directories": {
       "buildResources": "assets"
     }
-  }
+  },
+  "permissions": [
+    "https://*/",
+    "http://*/"
+  ]
 }

@@ -13,6 +13,7 @@ export const playerReducer = (
 			'./storage/video/คุณใหญ่.mp4',
 			'./storage/video/คุณโอ๊ต.mp4',
 			'./storage/video/คุณลุงตู่.mp4',
+			'./storage/video/ไม่มีชื่อ.mp4',
 			'./storage/video/ไม่พบข้อมูลครับ.mp4',
 		],
 		index_url: 0,
@@ -20,7 +21,6 @@ export const playerReducer = (
 	},
 	action
 ) => {
-
 	switch (action.type) {	
 		case 'PLAYER_UPDATE_DIMENSION':
 			return {
