@@ -24,7 +24,8 @@ export const playerReducer = (
 				'./storage/video/welcome_สวัสดีครับ.mp4',
 			]
 		},
-		player_state: 'welcome'
+		player_state: 'welcome',
+		can_capture: true
 	},
 	action
 ) => {
@@ -51,7 +52,7 @@ export const playerReducer = (
 							return {
 								...state,
 								player_state: 'welcome',
-								is_loading: true
+								can_capture: true
 							}
 						}
 						//คนมายืนหน้ากล้อง
@@ -59,21 +60,21 @@ export const playerReducer = (
 							return {
 								...state,
 								player_state: 'pre',
-								is_loading: true
+								can_capture : false
 							}
 						}
 						if (action.isCaptureOn === 'onCaptureStart') {
 							return {
 								...state,
 								player_state: 'pre',
-								is_loading: true
+								can_capture : true
 							}
 						}
-						if (action.isCaptureOn === '') {
+						if (action.isCaptureOn === 'fuck') {
 							return {
 								...state,
 								player_state: 'pre',
-								is_loading: true
+								can_capture: false
 							}
 						}
 				
@@ -85,8 +86,7 @@ export const playerReducer = (
 		
 			return {
 				...state,
-				player_state: 'pre',
-				is_loading: true
+				player_state: 'welcome',
 			}
 	
 

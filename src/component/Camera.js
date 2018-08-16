@@ -35,10 +35,10 @@ class Camera extends Component {
 				context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11)
 				context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22)
 
-				if (rect.x > 475 && rect.x < 675 && is_loading ) {
+				if (rect.x > 475 && rect.x < 675 && !is_loading ) {
 					
 					var dataURI = canvas.toDataURL('image/jpeg')
-						savePhoto64(dataURI)
+						//savePhoto64(dataURI)
 						handleOnCapturePre()
 					// isCapture()
 
